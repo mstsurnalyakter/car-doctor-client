@@ -6,7 +6,7 @@ import Footer from "../pages/shared/Footer/Footer"
 
 const Root = () => {
   return (
-    <div>
+    <div className="space-y-10">
         <NavBar/>
         <Outlet/>
         <Footer/>

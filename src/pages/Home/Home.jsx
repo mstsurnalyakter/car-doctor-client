@@ -1,12 +1,14 @@
 import About from "../../components/About"
 import Banner from "./Banner"
+import Services from "./Services"
 
 
 const Home = () => {
   return (
-    <div>
+    <div className="space-y-5">
       <Banner/>
       <About/>
+      <Services/>
     </div>
   )
 }
