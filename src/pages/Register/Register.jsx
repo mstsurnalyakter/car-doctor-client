@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { useForm } from "react-hook-form";
+import useContextData from "../../hooks/useContextData";
 
 
 const Register = () => {
 
     const [toggle, setToggle] = useState(false);
+    const {createUser} = useContextData();
 
      const {
        register,
@@ -15,7 +17,18 @@ const Register = () => {
      } = useForm();
 
      const onSubmit = (data) => {
-       console.log(data);
+      const {fullName,email,photoURL,password} = data
+       console.log(fullName,email,password,photoURL);
+
+
+       createUser(email,password)
+       .then(result=>{
+        console.log(result?.user);
+       })
+       .catch(error=>{
+        console.error(error.message)
+       })
+
      };
 
 
