@@ -7,14 +7,14 @@ const Services = () => {
   const [services,setServices] = useState([]);
 
   useEffect(()=>{
-    fetch("services.json")
-    .then(res=>res.json())
-    .then(data=>{
-      setServices(data)
-    })
-    .catch(error=>{
-      console.error(error);
-    })
+    fetch("http://localhost:5000/services")
+      .then((res) => res.json())
+      .then((data) => {
+        setServices(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
   },[])
 
