@@ -12,8 +12,9 @@ const ServiceCard = ({ service }) => {
         <h2 className="card-title">{service?.title}</h2>
         <p className="text-[#FF3811]">Price:${service?.price}</p>
         <div className="card-actions justify-end">
-          <Link to={`/checkout/${service?._id}`} className="text-[#FF3811]">
-            <FaLongArrowAltRight />
+          <Link to={`/checkout/${service?._id}`}>
+            {/* <FaLongArrowAltRight /> */}
+            <button className="bg-[#FF3811] text-white px-3 py-2">Book Now</button>
           </Link>
         </div>
       </div>
