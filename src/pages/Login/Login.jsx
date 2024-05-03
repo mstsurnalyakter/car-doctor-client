@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import login from '../../assets/images/login/login.svg'
+import useContextData from "../../hooks/useContextData";
 
 const Login = () => {
+  const {signIn} = useContextData()
       const {
         register,
         handleSubmit,
@@ -16,7 +18,16 @@ const Login = () => {
     const [toggle, setToggle] = useState(false);
 
     const onSubmit = data =>{
-        console.log(data);
+      const { email,  password } = data;
+        console.log(email,password);
+
+        signIn(email,password)
+        .then(result=>{
+          console.log(result.user);
+        })
+        .catch(error=>{
+          console.error(error.message)
+        })
     }
 
   return (
