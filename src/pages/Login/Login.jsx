@@ -2,12 +2,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from '../../assets/images/login/login.svg'
 import useContextData from "../../hooks/useContextData";
+import axios from "axios";
 
 const Login = () => {
-  const {signIn} = useContextData()
+  const {signIn} = useContextData();
+  const location = useLocation();
+  const navigate = useNavigate()
+
       const {
         register,
         handleSubmit,
@@ -19,11 +23,27 @@ const Login = () => {
 
     const onSubmit = data =>{
       const { email,  password } = data;
-        console.log(email,password);
+
 
         signIn(email,password)
         .then(result=>{
           console.log(result.user);
+          const user = {email};
+
+          // navigate(location?.state || "/")
+          //get access token
+
+          axios.post(
+            `http://localhost:5000/jwt`,user,{withCredentials:true}
+          )
+          .then(res=>{
+            if (res.data.success) {
+              navigate(location?.state || "/")
+            }
+          })
+
+
+
         })
         .catch(error=>{
           console.error(error.message)

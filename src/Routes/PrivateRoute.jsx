@@ -1,10 +1,12 @@
 
 import PropTypes from 'prop-types';
 import useContextData from "../hooks/useContextData";
-import { Navigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({children}) => {
      const { user, loading } = useContextData();
+     const location = useLocation();
+
      if (loading) {
         return (
           <div className='flex items-center justify-center mt-10 text-red-700'>
@@ -18,7 +20,7 @@ const PrivateRoute = ({children}) => {
      if (user?.email) {
         return children;
     }
-  return <Navigate to={'/login'} replace />
+  return <Navigate state={location?.pathname} to={'/login'} replace />
 }
 
 PrivateRoute.propTypes = {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { useForm } from "react-hook-form";
 import useContextData from "../../hooks/useContextData";
@@ -9,6 +9,7 @@ const Register = () => {
 
     const [toggle, setToggle] = useState(false);
     const {createUser} = useContextData();
+    const navigate = useNavigate()
 
      const {
        register,
@@ -24,6 +25,7 @@ const Register = () => {
        createUser(email,password)
        .then(result=>{
         console.log(result?.user);
+        navigate("/");
        })
        .catch(error=>{
         console.error(error.message)
