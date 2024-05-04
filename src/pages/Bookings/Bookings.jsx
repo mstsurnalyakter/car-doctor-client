@@ -1,8 +1,8 @@
 
-import PropTypes from 'prop-types'
 import useContextData from '../../hooks/useContextData'
 import { useEffect, useState } from 'react';
 import BookingsRow from './BookingsRow';
+import axios from 'axios';
 
 const Bookings = () => {
     const {user} = useContextData();
@@ -10,15 +10,25 @@ const Bookings = () => {
     const url = `http://localhost:5000/bookings?email=${user?.email}`;
 
     useEffect(()=>{
-        fetch(url)
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            setBookings(data)
-        })
-        .catch(error=>{
-            console.error(error.message)
-        })
+      axios.get(url,{withCredentials:true})
+      .then(res=>{
+        setBookings(res.data)
+      })
+      .catch(error=>{
+        console.error(error.message)
+      })
+        // fetch(url)
+        // .then(res=>res.json())
+        // .then(data=>{
+        //     console.log(data);
+        //     setBookings(data)
+        // })
+        // .catch(error=>{
+        //     console.error(error.message)
+        // })
+
+
+
     },[url])
 
         const handleDelete = (id) => {
