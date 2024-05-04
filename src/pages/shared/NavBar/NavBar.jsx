@@ -1,20 +1,43 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.svg"
+import useContextData from "../../../hooks/useContextData";
+import Bookings from "../../Bookings/Bookings";
 
 
 
 
 const NavBar = () => {
+const {user,logout} = useContextData();
 
+const handleLogOut = () =>{
+  logout()
+  .then(()=>{})
+  .catch(error=>{
+    console.error(error)
+  })
+
+}
 
   const navItems = (
     <>
       <li>
-        <NavLink to={'/'}>Home</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={'/about'}>About</NavLink>
+        <NavLink to={"/about"}>About</NavLink>
       </li>
+      {user ? (
+        <>
+        <li><NavLink to={'/bookings'}>My Bookings</NavLink></li>
+          <li>
+            <button onClick={handleLogOut}>LogOut</button>
+          </li>
+        </>
+      ) : (
+        <li>
+          <NavLink to={"/login"}>Login</NavLink>
+        </li>
+      )}
     </>
   );
 
